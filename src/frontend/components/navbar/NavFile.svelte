@@ -1,7 +1,14 @@
+
 <script lang='ts'>
     import Menu from '@smui/menu';
     import List, { Item, Separator, Text } from '@smui/list';
     import Button, { Label } from '@smui/button';
+    
+    function Ping() {
+      console.log("PING SENDED");
+      //ipcRenderer.send("PING", null);
+      //window.api.send("PING", null);
+    }
    
     let menu: Menu;
     let isProject: boolean = false;
@@ -31,7 +38,7 @@
         </Button>
         <Menu bind:this={menu}>
           <List>
-            <Item on:SMUI:action={create_project}>
+            <Item on:SMUI:action={Ping}>
               <Text>New Project</Text>
             </Item>
             <Item on:SMUI:action={open_project}>

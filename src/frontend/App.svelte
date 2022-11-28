@@ -1,6 +1,9 @@
 <script lang="ts">
-    import Content from './components/Content.svelte';
+    import Content from './components/pages/Content.svelte';
     import Nav from './components/navbar/Nav.svelte';
+	import ping from './bindings/main.js';
+
+	ping.ping();
 </script>
 
 <main>

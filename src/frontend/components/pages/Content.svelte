@@ -1,5 +1,5 @@
 <script>
-    import Startup from "./pages/startup.svelte";
+    import Startup from "Startup.svelte";
 
 
 </script>

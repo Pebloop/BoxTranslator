@@ -6,6 +6,8 @@ import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
+import includePaths from 'rollup-plugin-includepaths';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -30,8 +32,15 @@ function serve() {
 	};
 }
 
+let includePathOptions = {
+    include: {},
+    paths: ['src'],
+    external: [],
+    extensions: ['.js', '.json', '.html',  '.svelte', '.ts', '.scss', '.css']
+};
+
 export default {
-	input: 'src/main.ts',
+	input: 'src/frontend/main.ts',
 	output: {
 		sourcemap: true,
 		format: 'iife',
@@ -40,9 +49,14 @@ export default {
 		globals: {
 			'@smui/button': 'smuiButton',
 			'@smui/card': 'smuiCard',
+			'electron/renderer': 'electronRenderer',
+			'fs': 'fs',
+			'path': 'path'
 		}
 	},
 	plugins: [
+		includePaths(includePathOptions),
+		nodePolyfills(),
 		svelte({
 			preprocess: sveltePreprocess({ sourceMap: !production }),
 			compilerOptions: {
