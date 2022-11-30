@@ -4,6 +4,7 @@
 	import ping from './bindings/main.js';
 
 	ping.ping();
+	
 </script>
 
 <main>
@@ -11,12 +12,22 @@
 		<Nav />
 	</div>
 	<div class="content">
-		<Content />
+		<div class="empty"></div>
+		<div class="fill">
+			<Content />
+		</div>
 	</div>
 </main>
 
 <style>
 	
+.empty {
+	height: 2em;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
 main {
 	padding: 0;
 	margin: 0;
@@ -24,6 +35,7 @@ main {
 	width: 100%;
 	flex: content;
 	flex-wrap: wrap;
+	overflow: hidden;
 }
 
 .fixed {
@@ -31,14 +43,27 @@ main {
 	position: 0;
 	top: 0;
 	width: 100%;
+	z-index: 10;
 }
 
 .content {
-	padding-top: 1em;
-	height: 100%;
+	margin: 0;
+	padding: 0;
+	top: 0;
 	width: 100%;
-	flex: content;
-	flex-wrap: wrap;
+	height: 100%;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.fill {
+	flex: 1;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 }
 
 </style>

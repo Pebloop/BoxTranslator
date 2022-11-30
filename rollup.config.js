@@ -34,7 +34,7 @@ function serve() {
 
 let includePathOptions = {
     include: {},
-    paths: ['src'],
+    paths: ['src/frontend'],
     external: [],
     extensions: ['.js', '.json', '.html',  '.svelte', '.ts', '.scss', '.css']
 };
@@ -49,9 +49,6 @@ export default {
 		globals: {
 			'@smui/button': 'smuiButton',
 			'@smui/card': 'smuiCard',
-			'electron/renderer': 'electronRenderer',
-			'fs': 'fs',
-			'path': 'path'
 		}
 	},
 	plugins: [

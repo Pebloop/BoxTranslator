@@ -34,3 +34,13 @@ a:visited {
 .bg-light {
   background: color.adjust(rgb(31, 26, 32), $whiteness: +4%);
 }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+	background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+	background: #555;
+  }
