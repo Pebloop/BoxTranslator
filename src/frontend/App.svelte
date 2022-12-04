@@ -1,10 +1,11 @@
 <script lang="ts">
     import Content from './components/pages/Content.svelte';
     import Nav from './components/navbar/Nav.svelte';
-	import ping from './bindings/main.js';
+	import bind from './bindings/main.js';
+	import {pageStore} from "./stores/page_store";
 
-	ping.ping();
-	
+	bind.load_projects();
+	pageStore.reset();
 </script>
 
 <main>
@@ -63,6 +64,7 @@ main {
 	overflow: auto;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	width: 100%;
 }
 

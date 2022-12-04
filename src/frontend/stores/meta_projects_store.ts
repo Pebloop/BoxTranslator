@@ -25,3 +25,5 @@ function createMetaProjectsStore() {
         }),
     };
 }
+
+export const metaProjectsStore = createMetaProjectsStore();

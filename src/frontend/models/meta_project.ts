@@ -7,4 +7,5 @@ export interface MetaProject {
     updated: Date;
     author: string;
     game: string;
+    path: string;
 }

@@ -5,6 +5,10 @@
     import CharacterCounter from '@smui/textfield/character-counter';
     import Button, { Label } from '@smui/button';
     import { projectStore } from '../../stores/project_store';
+    import bind from '../../bindings/main.js';
+    import {Games, getGameId, getGameName} from "../../models/games";
+    import {pageStore} from "../../stores/page_store";
+    import {metaProjectsStore} from "../../stores/meta_projects_store";
 
     let availableLanguages = ['FR', 'EN', 'ES', 'GR'];
    
@@ -12,9 +16,10 @@
     let username = '';
     let projectLanguage = '';
     let projectDescription = '';
-    let game = undefined;
+    let game;
+    let gamePath = '';
     $: projectUid = username + '.' + projectName.split(' ').join('_').toLowerCase();
-    $: gameDisplayName = game ? game.displayName : 'No game selected...';
+    $: gameDisplayName = game ? getGameName(game) : 'No game selected...';
 
     $: isProjectNameValid = projectName.length > 0;
     $: isUsernameValid = username.length > 0;
@@ -25,10 +30,11 @@
     }
 
     function createProject() {
-        projectStore.set({
+        const project = {
             meta: {
                 uid: projectUid,
                 name: projectName,
+                path: gamePath,
                 language: projectLanguage,
                 description: projectDescription,
                 created: new Date(),
@@ -40,12 +46,30 @@
                 isCategory: true,
                 data: {}
             }
+        }
+        projectStore.set(project);
+        metaProjectsStore.add(project.meta);
+        pageStore.set("game");
+        bind.save_project(project, false);
+        metaProjectsStore.subscribe((metaProjects) => {
+            bind.save_projects(metaProjects);
         });
-        alert('Project created!');
+
     }
 
     function chooseGame() {
         console.log('Choosing game');
+        bind.open_game_folder((path) => {
+            console.log('Game path: ' + path);
+            bind.guess_game(path, (foundGame) => {
+                console.log('Game: ' + foundGame);
+                if (foundGame && foundGame !== "Unknown") {
+                    game = getGameId(foundGame);
+                    gamePath = path;
+                }
+            });
+        });
+
     }
   </script>
 

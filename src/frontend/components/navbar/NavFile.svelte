@@ -3,22 +3,28 @@
     import Menu from '@smui/menu';
     import List, { Item, Separator, Text } from '@smui/list';
     import Button, { Label } from '@smui/button';
-    
-    function Ping() {
-      console.log("PING SENDED");
-      //ipcRenderer.send("PING", null);
-      //window.api.send("PING", null);
-    }
+    import {pageStore} from "../../stores/page_store";
+    import {projectStore} from "../../stores/project_store";
    
     let menu: Menu;
     let isProject: boolean = false;
 
+    projectStore.subscribe((project) => {
+      if (project) {
+        isProject = project !== null && project !== undefined;
+      }
+    });
+
     function create_project() {
-        console.log("create project");
+      pageStore.set("create-project");
     }
 
     function open_project() {
-        console.log("open project");
+      pageStore.set("startup");
+    }
+
+    function import_project() {
+      console.log("import project");
     }
 
     function save_project() {
@@ -38,11 +44,14 @@
         </Button>
         <Menu bind:this={menu}>
           <List>
-            <Item on:SMUI:action={Ping}>
+            <Item on:SMUI:action={create_project}>
               <Text>New Project</Text>
             </Item>
             <Item on:SMUI:action={open_project}>
               <Text>Open Project</Text>
+            </Item>
+            <Item on:SMUI:action={import_project}>
+              <Text>Import Project</Text>
             </Item>
             <Separator />
             <Item on:SMUI:action={save_project} disabled={!isProject}>
